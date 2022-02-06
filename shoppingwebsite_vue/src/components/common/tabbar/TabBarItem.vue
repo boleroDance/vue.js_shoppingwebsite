@@ -19,14 +19,23 @@
 <script>
 export default {
   name: "TabBarItem",
+  props: {                                                
+    path: String
+  },
   data() {
     return {
-      isActive: false,
+      // isActive: true,
     };
+  },
+  computed: {
+    isActive() {
+      // return this.$route.path == this.path  // this.$route 当前路由对象 判断活跃路由的path是否为传进来的path
+      return this.$route.path.includes(this.path) 
+    }
   },
   methods: {
     itemClick() {
-      console.log("ddddd");
+      this.$router.replace(this.path).catch(err => err)     //this.$router 全局的路由器对象 
     },
   },
 };
@@ -49,6 +58,6 @@ export default {
 }
 
 .active {
-  color: rgb(216, 30, 6);
+  color: rgb(255, 87, 119);
 }
 </style>
