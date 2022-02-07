@@ -3,7 +3,7 @@
     <div v-for="(item, index) in titles" 
     :key="item" 
     class="tab-control-item"
-    :class="{active: index === currentIndex}" @click="itemClick(index)">
+    :class="{pinkactive: index === currentIndex}" @click="itemClick(index)">
       <span>{{item}}</span>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
     flex: 1;
   }
 
-  .active {
+  .pinkactive {
     color: var(--color-high-text);
     border-bottom: 3px solid var(--color-tint);
   }
