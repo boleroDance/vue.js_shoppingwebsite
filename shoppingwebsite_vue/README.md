@@ -135,4 +135,36 @@ module.exports = {
        </swiper-item>
   ```
 
-  
+
+### recommend
+
++ RecommendView.vue 中，将recommends数据通过props从home.vue传过来
++ v-for循环遍历展示
+
+### tabcontrol组件封装
+
++ 项目内重复使用，放入components -> content 内
++ 不同页面仅文字不同，无需使用插槽
++ 使用组件通过props将titles传过来
+
++ div>根据titles 遍历 div -> span{{title}}
++ 绑定tab点击事件
+  + 定义currentIndex保存index
+
+#### 首页商品数据请求
+
+#### 保存数据的变量
+
++ 流行 - 'pop'
++ 新款 - 'new'
++ 精选 - 'sell'
++ 数据结构
+
+```
+goods: {
+	'pop': {page: 记录数据库页数, list: [记录数据]},
+	'new': {page: 1, list: [...]},
+	'sell': {page: 1, list: [...]}
+}
+```
+
