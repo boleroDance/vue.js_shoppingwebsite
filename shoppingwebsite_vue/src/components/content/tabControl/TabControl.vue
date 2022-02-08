@@ -29,6 +29,9 @@ export default {
     itemClick(index) {
       // console.log(index)
       this.currentIndex = index
+      // 内部发生点击事件，将index传到home， home根据index发送相应数据
+      //子传父 emit()
+      this.$emit('itemClick', index)
     }
   }
 }

@@ -20,7 +20,7 @@ npm run build
 npm run test
 ```
 
-## 初始工作
+# 初始工作
 
 ### 划分目录结构
 
@@ -65,9 +65,9 @@ module.exports = {
 
 ``link rel="icon" href="<%= BASE_URL %>favicon.ico"``，<%= BASE_URL %>为jsp语法，获取当前文件所在路径
 
-## 首页开发
+# 首页开发
 
-### navigation bar组件
+## navigation bar组件
 
 + NavBar.vue 封装
 
@@ -92,7 +92,7 @@ module.exports = {
   }
   ```
 
-### 首页数据请求
+## 首页数据请求
 
 + 封装request.js
 + home.js负责首页数据请求
@@ -119,7 +119,7 @@ module.exports = {
     }
   ```
 
-### 首页轮播图
+## 首页轮播图
 
 + Home.vue -> HomeSwiper.vue组件树
 
@@ -136,12 +136,12 @@ module.exports = {
   ```
 
 
-### recommend
+## recommend
 
 + RecommendView.vue 中，将recommends数据通过props从home.vue传过来
 + v-for循环遍历展示
 
-### tabcontrol组件封装
+## tabcontrol组件封装
 
 + 项目内重复使用，放入components -> content 内
 + 不同页面仅文字不同，无需使用插槽
@@ -151,7 +151,7 @@ module.exports = {
 + 绑定tab点击事件
   + 定义currentIndex保存index
 
-#### 首页商品数据请求
+## 首页商品数据请求
 
 #### 保存数据的变量
 
@@ -167,4 +167,37 @@ goods: {
 	'sell': {page: 1, list: [...]}
 }
 ```
+
++ 在home.js中封装getHomeTabData(type, page)
++ 组件一经创建 created() 分别调
+  + this.getHomeTabData('pop')
+  + this.getHomeTabData('new')
+  + this.getHomeTabData('sell')
++ 在Home.vue中, 在methods中getHomeTabData(type)
++ 获取到数据
+  + this.goods[type].list.push(...res.data.list)
+  +  this.goods[type].page += 1
+
+#### 监听tab点击，分别进行展示
+
++ 记录index，首页根据index发送对应数据
+
+  + 子传父 this.$emit('itemClick', index)
+
+  + 首页接收
+
+    + 定义变量currentType记录type
+    +   \<goods-list :goods="goods[currentType].list"\</goods-list>
+
+    + swith(index) {case 0: this.currentType = 'pop' break case1: ...}
+
+## 对滚动进行重构 
+
+### Better-Scroll
+
++ 解决移动端、PC各种滚动场景需求的插件
+
++ [官方文档](https://better-scroll.github.io/docs/zh-CN/guide/#betterscroll-%E6%98%AF%E4%BB%80%E4%B9%88)
+
++ npm install @better-scroll/core --save
 

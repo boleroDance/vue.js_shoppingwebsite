@@ -26,21 +26,22 @@ export default {
 
 <style>
   .goods-item {
-    padding-bottom: 60px;
+    padding-bottom: 70px;
 
-    width: 100%;
+    width: 46%;
     position: relative;
   }
 
   .goods-item img {
     width: 100%;
+    height: 100%;
     border-radius: 5px;
   }
 
   .goods-info {
     font-size: 12px;
     position: absolute;
-    bottom: 13px;
+    bottom: 2px;
     left: 0;
     right: 0;
     overflow: hidden;
@@ -51,13 +52,16 @@ export default {
     color: var(--color-high-text);
     margin-right: 20px;
   }
+  .goods-info .collect {
+    position: absolute;
+  }
 
   .goods-info .collect::before {
     content: '';
     position: absolute;
-    left: 191px;
+    left: -15px;
+    top: -1px;
     width: 14px;
-    bottom: 2px;
     height: 14px;
     background: url("../../../assets/image/common/collect.svg") 0 0/14px 14px;
   }
