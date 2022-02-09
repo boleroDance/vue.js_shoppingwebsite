@@ -199,5 +199,98 @@ goods: {
 
 + [官方文档](https://better-scroll.github.io/docs/zh-CN/guide/#betterscroll-%E6%98%AF%E4%BB%80%E4%B9%88)
 
-+ npm install @better-scroll/core --save
++ npm install @better-scroll/core  --save
+
+### 在index.html中使用better-scroll
+
++ 导入core.js 库
++ const  bscroll = new BScroll(document.querySelector('.wrapper'), { options})
+
++ better-scroll 监听滚动
+
+  + 默认情况下，BScroll无法实时监听，需要传入参数
+
+  + probeType: 0/1/2(监听手指滚动)/3(监听所有滚动)
+
+  + bscroll.on('scroll',(position) => {
+
+       console.log(position)
+
+      })
+
++ better-scroll 上拉加载
+
+### 在vue中使用better-scroll
+
++ npm install --save better -scroll -S @better-scroll/pull-up
++ 使用
+
+```
+import BScroll from 'better-scroll'
+import Pullup from '@better-scroll/pull-up'
+BScroll.use(Pullup)
+
+data() {
+return {
+	scroll: null
+}
+}
+
+mouted() {
+	this.scroll = new BScroll('.wrapper',{
+      probeType: 3,
+      pullUpLoad: true,
+    })
+    // this.scroll.on('scroll',(position) => {
+    //   console.log(position)
+    // })
+    this.scroll.on('pullingUp', () => {
+      console.log('上拉加载')
+    })
+}
+```
+
++ 对better-scroll进行封装
+
+  +  Scroll.vue  
+
+    ```
+    <template>
+      <div class="wrapper" ref="wrapper">   // 通过ref定位元素：new BScroll(this.$refs.wrapper,{...})
+        <div class="content">
+        <slot></slot>
+        </div>
+      </div>
+    </template>
+    ```
+
+  + Home.vue
+
+    ```
+    <template>
+    	 <div id="home" class="wrapper">
+    	 	...
+    	 	<scroll class="content">
+    	 		...
+    	 	</scroll> 
+    	 </div>
+    </template>
+    
+    <style scoped>
+    	.content {
+     		 height:...;
+     	 	overflow: hidden;
+    	}
+    </style>
+    ```
+
+### 回到顶部BackTop
+
++ 封装BackTop.vue组件
++ 监听组件点击，注意监听组件需加修饰符.native
+  + <back-top @click.native="backTopClick">\</back-top>
+  + scroll中提供回到顶部方法
+    + scroll对象, scroll.scrollTo(x, y, time)
+    + 通过refs拿到子组件的对象
+      + this.$refs.scroll.scrollTo(0, 0)
 

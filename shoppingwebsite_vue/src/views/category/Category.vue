@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <ul class="content">
+      <button @click="btnClick">click me</button>
       <li>categorylist1</li>
       <li>categorylist2</li>
       <li>categorylist3</li>
@@ -251,262 +252,15 @@
       <li>categorylist248</li>
       <li>categorylist249</li>
       <li>categorylist250</li>
-      <li>categorylist251</li>
-      <li>categorylist252</li>
-      <li>categorylist253</li>
-      <li>categorylist254</li>
-      <li>categorylist255</li>
-      <li>categorylist256</li>
-      <li>categorylist257</li>
-      <li>categorylist258</li>
-      <li>categorylist259</li>
-      <li>categorylist260</li>
-      <li>categorylist261</li>
-      <li>categorylist262</li>
-      <li>categorylist263</li>
-      <li>categorylist264</li>
-      <li>categorylist265</li>
-      <li>categorylist266</li>
-      <li>categorylist267</li>
-      <li>categorylist268</li>
-      <li>categorylist269</li>
-      <li>categorylist270</li>
-      <li>categorylist271</li>
-      <li>categorylist272</li>
-      <li>categorylist273</li>
-      <li>categorylist274</li>
-      <li>categorylist275</li>
-      <li>categorylist276</li>
-      <li>categorylist277</li>
-      <li>categorylist278</li>
-      <li>categorylist279</li>
-      <li>categorylist280</li>
-      <li>categorylist281</li>
-      <li>categorylist282</li>
-      <li>categorylist283</li>
-      <li>categorylist284</li>
-      <li>categorylist285</li>
-      <li>categorylist286</li>
-      <li>categorylist287</li>
-      <li>categorylist288</li>
-      <li>categorylist289</li>
-      <li>categorylist290</li>
-      <li>categorylist291</li>
-      <li>categorylist292</li>
-      <li>categorylist293</li>
-      <li>categorylist294</li>
-      <li>categorylist295</li>
-      <li>categorylist296</li>
-      <li>categorylist297</li>
-      <li>categorylist298</li>
-      <li>categorylist299</li>
-      <li>categorylist300</li>
-      <li>categorylist301</li>
-      <li>categorylist302</li>
-      <li>categorylist303</li>
-      <li>categorylist304</li>
-      <li>categorylist305</li>
-      <li>categorylist306</li>
-      <li>categorylist307</li>
-      <li>categorylist308</li>
-      <li>categorylist309</li>
-      <li>categorylist310</li>
-      <li>categorylist311</li>
-      <li>categorylist312</li>
-      <li>categorylist313</li>
-      <li>categorylist314</li>
-      <li>categorylist315</li>
-      <li>categorylist316</li>
-      <li>categorylist317</li>
-      <li>categorylist318</li>
-      <li>categorylist319</li>
-      <li>categorylist320</li>
-      <li>categorylist321</li>
-      <li>categorylist322</li>
-      <li>categorylist323</li>
-      <li>categorylist324</li>
-      <li>categorylist325</li>
-      <li>categorylist326</li>
-      <li>categorylist327</li>
-      <li>categorylist328</li>
-      <li>categorylist329</li>
-      <li>categorylist330</li>
-      <li>categorylist331</li>
-      <li>categorylist332</li>
-      <li>categorylist333</li>
-      <li>categorylist334</li>
-      <li>categorylist335</li>
-      <li>categorylist336</li>
-      <li>categorylist337</li>
-      <li>categorylist338</li>
-      <li>categorylist339</li>
-      <li>categorylist340</li>
-      <li>categorylist341</li>
-      <li>categorylist342</li>
-      <li>categorylist343</li>
-      <li>categorylist344</li>
-      <li>categorylist345</li>
-      <li>categorylist346</li>
-      <li>categorylist347</li>
-      <li>categorylist348</li>
-      <li>categorylist349</li>
-      <li>categorylist350</li>
-      <li>categorylist351</li>
-      <li>categorylist352</li>
-      <li>categorylist353</li>
-      <li>categorylist354</li>
-      <li>categorylist355</li>
-      <li>categorylist356</li>
-      <li>categorylist357</li>
-      <li>categorylist358</li>
-      <li>categorylist359</li>
-      <li>categorylist360</li>
-      <li>categorylist361</li>
-      <li>categorylist362</li>
-      <li>categorylist363</li>
-      <li>categorylist364</li>
-      <li>categorylist365</li>
-      <li>categorylist366</li>
-      <li>categorylist367</li>
-      <li>categorylist368</li>
-      <li>categorylist369</li>
-      <li>categorylist370</li>
-      <li>categorylist371</li>
-      <li>categorylist372</li>
-      <li>categorylist373</li>
-      <li>categorylist374</li>
-      <li>categorylist375</li>
-      <li>categorylist376</li>
-      <li>categorylist377</li>
-      <li>categorylist378</li>
-      <li>categorylist379</li>
-      <li>categorylist380</li>
-      <li>categorylist381</li>
-      <li>categorylist382</li>
-      <li>categorylist383</li>
-      <li>categorylist384</li>
-      <li>categorylist385</li>
-      <li>categorylist386</li>
-      <li>categorylist387</li>
-      <li>categorylist388</li>
-      <li>categorylist389</li>
-      <li>categorylist390</li>
-      <li>categorylist391</li>
-      <li>categorylist392</li>
-      <li>categorylist393</li>
-      <li>categorylist394</li>
-      <li>categorylist395</li>
-      <li>categorylist396</li>
-      <li>categorylist397</li>
-      <li>categorylist398</li>
-      <li>categorylist399</li>
-      <li>categorylist400</li>
-      <li>categorylist401</li>
-      <li>categorylist402</li>
-      <li>categorylist403</li>
-      <li>categorylist404</li>
-      <li>categorylist405</li>
-      <li>categorylist406</li>
-      <li>categorylist407</li>
-      <li>categorylist408</li>
-      <li>categorylist409</li>
-      <li>categorylist410</li>
-      <li>categorylist411</li>
-      <li>categorylist412</li>
-      <li>categorylist413</li>
-      <li>categorylist414</li>
-      <li>categorylist415</li>
-      <li>categorylist416</li>
-      <li>categorylist417</li>
-      <li>categorylist418</li>
-      <li>categorylist419</li>
-      <li>categorylist420</li>
-      <li>categorylist421</li>
-      <li>categorylist422</li>
-      <li>categorylist423</li>
-      <li>categorylist424</li>
-      <li>categorylist425</li>
-      <li>categorylist426</li>
-      <li>categorylist427</li>
-      <li>categorylist428</li>
-      <li>categorylist429</li>
-      <li>categorylist430</li>
-      <li>categorylist431</li>
-      <li>categorylist432</li>
-      <li>categorylist433</li>
-      <li>categorylist434</li>
-      <li>categorylist435</li>
-      <li>categorylist436</li>
-      <li>categorylist437</li>
-      <li>categorylist438</li>
-      <li>categorylist439</li>
-      <li>categorylist440</li>
-      <li>categorylist441</li>
-      <li>categorylist442</li>
-      <li>categorylist443</li>
-      <li>categorylist444</li>
-      <li>categorylist445</li>
-      <li>categorylist446</li>
-      <li>categorylist447</li>
-      <li>categorylist448</li>
-      <li>categorylist449</li>
-      <li>categorylist450</li>
-      <li>categorylist451</li>
-      <li>categorylist452</li>
-      <li>categorylist453</li>
-      <li>categorylist454</li>
-      <li>categorylist455</li>
-      <li>categorylist456</li>
-      <li>categorylist457</li>
-      <li>categorylist458</li>
-      <li>categorylist459</li>
-      <li>categorylist460</li>
-      <li>categorylist461</li>
-      <li>categorylist462</li>
-      <li>categorylist463</li>
-      <li>categorylist464</li>
-      <li>categorylist465</li>
-      <li>categorylist466</li>
-      <li>categorylist467</li>
-      <li>categorylist468</li>
-      <li>categorylist469</li>
-      <li>categorylist470</li>
-      <li>categorylist471</li>
-      <li>categorylist472</li>
-      <li>categorylist473</li>
-      <li>categorylist474</li>
-      <li>categorylist475</li>
-      <li>categorylist476</li>
-      <li>categorylist477</li>
-      <li>categorylist478</li>
-      <li>categorylist479</li>
-      <li>categorylist480</li>
-      <li>categorylist481</li>
-      <li>categorylist482</li>
-      <li>categorylist483</li>
-      <li>categorylist484</li>
-      <li>categorylist485</li>
-      <li>categorylist486</li>
-      <li>categorylist487</li>
-      <li>categorylist488</li>
-      <li>categorylist489</li>
-      <li>categorylist490</li>
-      <li>categorylist491</li>
-      <li>categorylist492</li>
-      <li>categorylist493</li>
-      <li>categorylist494</li>
-      <li>categorylist495</li>
-      <li>categorylist496</li>
-      <li>categorylist497</li>
-      <li>categorylist498</li>
-      <li>categorylist499</li>
-      <li>categorylist500</li>
     </ul>
   </div>
 </template>
 
 <script>
-import BScroll from '@better-scroll/core'
+import BScroll from 'better-scroll'
+import Pullup from '@better-scroll/pull-up'
+BScroll.use(Pullup)
+
 export default {
   name: "Category",
   data() {
@@ -517,13 +271,25 @@ export default {
 
   mounted() {
     this.scroll = new BScroll('.wrapper',{
-      
+      probeType: 3,
+      pullUpLoad: true,
     })
+    // this.scroll.on('scroll',(position) => {
+    //   console.log(position)
+    // })
+    this.scroll.on('pullingUp', () => {
+      console.log('上拉加载')
+    })
+  },
+  methods: {
+    btnClick() {
+      console.log('btnClick')
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
   .wrapper {
     height: 250px;
     background-color: darksalmon;
