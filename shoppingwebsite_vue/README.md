@@ -187,9 +187,26 @@ goods: {
   + 首页接收
 
     + 定义变量currentType记录type
-    +   \<goods-list :goods="goods[currentType].list"\</goods-list>
+    + \<goods-list :goods="goods[currentType].list"\</goods-list>
+  + swith(index) {case 0: this.currentType = 'pop' break case1: ...}
+  
++ GoodsList.vue中，通过props接收首页数据
 
-    + swith(index) {case 0: this.currentType = 'pop' break case1: ...}
+  + goods: {
+
+    ​	type:Array,
+
+    ​	default() {
+
+    ​		return []
+
+    ​	}
+
+    }
+
+  + v-for="(item,index) in goods
+
++ GoodsListItem.vue 中，取出数据，通过div/span/img标签进行展示
 
 ## 对滚动进行重构 
 
@@ -331,3 +348,48 @@ mouted() {
          }
 
         }
+
+### 上拉加载更多功能
+
++ 在Scroll.vue 中监听上拉
+
+  + import PullUp from '@better-scroll/pull-up'
+
+  + BScroll.use(PullUp)
+
+  + this.scroll.on('pullingUp', () => {
+
+    ​	this.$emit('pullingUp')
+
+    })
+
+  + props: {
+
+    ​	...
+
+    ​	pullUpLoad: {
+
+    ​		type: Boolean,
+
+    ​		default: false
+
+    ​	}
+
+    }
+
++ Home中加载更多数据
+
+  + :pullingLoad= "true"
+
+  + @pullingUp = "loadMore"
+
+  + loadMore() {
+
+    ​	this.getHomeTabData(this.currentType)
+
+    ​    this.$refs.scroll.scroll.refresh()  // better—scroll重新计算高度
+
+    }
+
+  + 数据请求完成后 this.$refs.scroll.scroll.finishPullUp()
+

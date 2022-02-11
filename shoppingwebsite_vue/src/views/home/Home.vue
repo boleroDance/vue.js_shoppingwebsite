@@ -57,6 +57,7 @@ export default {
       // result: null
       banners: [],
       recommends: [],
+      // 设计数据结构，用于保存数据
       goods: {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
