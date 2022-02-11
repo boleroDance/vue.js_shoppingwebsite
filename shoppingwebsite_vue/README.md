@@ -252,7 +252,7 @@ mouted() {
 
 + 对better-scroll进行封装
 
-  +  Scroll.vue  
+  + Scroll.vue  
 
     ```
     <template>
@@ -262,10 +262,18 @@ mouted() {
         </div>
       </div>
     </template>
+    
+    setTimeout(() => {this.scroll = new BScroll(this.$refs.wrapper, {
+          observerDOM: true,
+          click: true,
+          probeType: 3
+        })
+        }, 1000);
+      },
     ```
-
+  
   + Home.vue
-
+  
     ```
     <template>
     	 <div id="home" class="wrapper">
@@ -287,10 +295,39 @@ mouted() {
 ### 回到顶部BackTop
 
 + 封装BackTop.vue组件
+
 + 监听组件点击，注意监听组件需加修饰符.native
   + <back-top @click.native="backTopClick">\</back-top>
   + scroll中提供回到顶部方法
     + scroll对象, scroll.scrollTo(x, y, time)
     + 通过refs拿到子组件的对象
       + this.$refs.scroll.scrollTo(0, 0)
+  
++ 显示和隐藏
 
+  + 组件内监听滚动，通过$emit传出去
+
+    + this.scroll.on('scroll', (position) => {
+
+      ​	this.$emit('scroll', position)
+
+      })
+
+  + 首页通过@scroll自定义事件接收
+
+    + @scroll="contentScroll"
+    + showBackTop = false
+
+    + contentScroll(position) {
+
+         if(position.y < -666) {
+
+      ​    this.showBackTop = true
+
+         }else {
+
+      ​    this.showBackTop = false
+
+         }
+
+        }

@@ -1,7 +1,13 @@
 <template>
   <div id="home" class="wrapper">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content" ref="scroll">
+    <scroll 
+    class="content" 
+    ref="scroll" 
+    :probeType="3" 
+    @scroll="contentScroll"
+    :pullUpLoad="true" 
+    @pullingUp="loadMore">
       <home-swiper :banners="banners"></home-swiper>
         <recommend-view :recommends="recommends"></recommend-view>
         <feature-view></feature-view>
@@ -13,7 +19,7 @@
         <goods-list :goods="goods[currentType].list"></goods-list>
     </scroll> 
     <!-- 监听一个组件时，必须给对应的事件加上.native修饰符 -->
-    <back-top @click.native="backTopClick"></back-top>
+    <back-top @click.native="backTopClick" v-show="showBackTop"></back-top>
   </div>
 </template>
 
@@ -57,6 +63,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      showBackTop: 'false'
     };
   },
   created() {
@@ -68,6 +75,8 @@ export default {
     this.getHomeTabData("pop");
     this.getHomeTabData("new");
     this.getHomeTabData("sell");
+
+    this.showBackTop = false
   },
   methods: {
     // 将created的函数抽到methods中，在created只需调用
@@ -85,6 +94,8 @@ export default {
         console.log(res.data.list);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+
+        this.$refs.scroll.scroll.finishPullUp()
       });
     },
 
@@ -107,8 +118,27 @@ export default {
     backTopClick() {
       // 通过 $refs 访问子组件scroll对象
       this.$refs.scroll.scrollTo(0,0,500)
+    },
+
+    // 监听回到顶部事件
+    contentScroll(position) {
+      // console.log(position)
+      if(position.y < -666) {
+        this.showBackTop =  true
+      }else {
+        this.showBackTop =  false
+      }
+    },
+
+    loadMore() {
+        console.log('shangla')
+        this.getHomeTabData(this.currentType)
+        this.$refs.scroll.scroll.refresh() // better—scroll重新计算高度
     }
+    
   },
+  
+
 };
 </script>
 
