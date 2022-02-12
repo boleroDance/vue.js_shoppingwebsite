@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="">
+    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -19,6 +19,12 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  methods: {
+    //监听图片加载,图片一旦加载，scroll就刷新一次
+    imageLoad() {
+      this.$bus.$emit('itemImageLoad')
     }
   }
 }

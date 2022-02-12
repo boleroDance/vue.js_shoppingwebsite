@@ -2,7 +2,7 @@
 <!-- ref 获取元素对象或组件对象 -->
   <div class="wrapper" ref="wrapper">
     <div class="content">
-    <slot></slot>
+    <slot></slot> h
     </div>
   </div>
 </template>
@@ -40,8 +40,8 @@ export default {
   
     // 解决需刷新better scroll才起效果的bug 使用定时器
     setTimeout(() => {this.scroll = new BScroll(this.$refs.wrapper, {
-      observerDOM: true,
-      observeImage: true,
+      // observerDOM: true,
+      // observeImage: true,
       click: true,
       // probeType: 3 影响性能，并非所有页面都需要监听滚动，因此设置props外部传入probeType值，默认为0 -》 不监听
       probeType: this.probeType,
@@ -54,11 +54,17 @@ export default {
       this.$emit('scroll', position)
     })
     
+    if(this.scroll){
+      this.scroll.refresh()
+    }
+
+
     // 监听到底上拉事件
     this.scroll.on('pullingUp', () => {
       // console.log('上拉加载更多')
       this.$emit('pullingUp')
     })
+
 
     }, 1000);
 
@@ -66,8 +72,8 @@ export default {
 
   methods: {
     scrollTo(x,y,time) {
-      this.scroll.scrollTo(x,y,time)
-    }
+      this.scroll && this.scroll.scrollTo(x,y,time)
+    },
   }
 }
 </script>

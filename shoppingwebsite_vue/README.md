@@ -393,3 +393,82 @@ mouted() {
 
   + 数据请求完成后 this.$refs.scroll.scroll.finishPullUp()
 
+### 解决首页中可滚动区域的问题
+
++ Better-Scroll在决定有多少区域可以滚动时, 是根据scrollerHeight属性决定
+  - scrollerHeight属性是根据放Better-Scroll的content中的子组件的高度
+  - 但是我们的首页中, 刚开始在计算scrollerHeight属性时, 是没有将图片计算在内的
+  - 所以, 计算出来的告诉是错误的(1300+)
+  - 后来图片加载进来之后有了新的高度, 但是scrollerHeight属性并没有进行更新.
+  - 所以滚动出现了问题
+
++ 如何解决该问题？
+
+  + 监听每一张图片是否加载完成, 只要有一张图片加载完成了, 执行一次refresh()
+  + 如何监听图片加载是否完成?
+    + 原生的js监听图片: img.onload = function() {}
+    + Vue中监听: @load='方法'
+
+  + 调用scroll的refresh()
+
++ 在GoodsItemList.vue 中监听，在主页调Scroll.vue 中的refresh()方法
+
+  + 涉及到非父子组件的通信，选择**事件总线**
+  + 基本方法
+    + Vue.prototype.$bus = new Vue()
+    + this.bus.emit('事件名称', 参数)
+    + this.bus.on('事件名称', 回调函数(参数))
+
++ 对于refresh非常频繁的问题, 进行防抖操作
+
+  + 防抖函数起作用的过程:
+    + 如果我们直接执行refresh, 那么refresh函数会被执行30次
+    + 可以将refresh函数传入到debounce函数中, 生成一个新的函数
+    + 之后在调用非常频繁的时候, 就使用新生成的函数
+    + 而新生成的函数, 并不会非常频繁的调用, 如果下一次执行来的非常快, 那么会将上一次取消掉(cleartimeout)
+
+  + 基本使用
+
+  ```javascript
+  debounce(func, delay) {
+  	let timer = null
+      return function(...args) {
+          if(timer) clearTimeout
+          timer = setTimeout(() => {
+              func.apply(this, args)
+          }, delay)
+      }
+  },
+  ```
+
+### better-scroll中解决吸顶问题
+
+#### 获取tabControl的offsetTop
+
++ 定义变量tabOffsetTop 来保存距离值，定义isTabFixed: false 记录
+
++ 图片加载需要时间，使用定时器
+
+  ```javascript
+  setTimeout(() => {
+        this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop               
+      }, 1000); 
+  ```
+
++ 在滚动监听中 this.isTabFixed = (-position.y) > this.tabOffsetTop
+
++ 多复制了一份TabControl组件对象, 利用它来实现停留效果 v-show="isTabFixed"
+
++ 注意同时维护两个TabControl组件对象的点击事件
+
+  + $refs.tabControlFack和$refs.tabControl
+
+  + 在itemClick点击中 
+
+    ```
+    this.$refs.tabControlFack.currentIndex = index
+    this.$refs.tabControl.currentIndex = index
+    ```
+
+    
+

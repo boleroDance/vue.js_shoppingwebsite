@@ -1,6 +1,12 @@
 <template>
   <div id="home" class="wrapper">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control
+          :titles="['流行', '新款', '精选']"
+          @itemClick="itemClick"
+          ref="tabControlFack"
+          v-show="isTabFixed"
+        ></tab-control>
     <scroll 
     class="content" 
     ref="scroll" 
@@ -12,9 +18,9 @@
         <recommend-view :recommends="recommends"></recommend-view>
         <feature-view></feature-view>
         <tab-control
-          class="tab-control"
           :titles="['流行', '新款', '精选']"
           @itemClick="itemClick"
+          ref="tabControl"
         ></tab-control>
         <goods-list :goods="goods[currentType].list"></goods-list>
     </scroll> 
@@ -39,6 +45,7 @@ import { getHomeTabData } from "../../network/home.js";
 import Scroll from "../../components/common/scroll/Scroll.vue";
 import BackTop from '../../components/content/backTop/BackTop.vue';
 
+import {debounce} from '../../common/utils'
 export default {
   name: "Home",
   components: {
@@ -64,7 +71,9 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      showBackTop: 'false'
+      showBackTop: 'false',
+      tabOffsetTop: 0,
+      isTabFixed: false
     };
   },
   created() {
@@ -78,6 +87,24 @@ export default {
     this.getHomeTabData("sell");
 
     this.showBackTop = false
+
+    
+  },
+  mounted() {
+    // 图片加载完成的事件监听
+    const refresh = debounce(this.$refs.scroll.refresh, 500)
+    
+    this.$bus.$on('itemImageLoad', () => {
+      console.log('---------')
+      refresh()
+    })
+    // 获取tabcontrol 的 offsetTop
+    // 所有组件都有一个属性 $el 用于获取组件中的元素
+    setTimeout(() => {
+      this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop               // 定义变量tabOffsetTop 来保存值，由于图片加载需要时间，这里我用了个定时器
+    }, 1000); 
+    
+    
   },
   methods: {
     // 将created的函数抽到methods中，在created只需调用
@@ -95,8 +122,10 @@ export default {
         console.log(res.data.list);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-
+       // better-scroll默认只加载一次，需要调finishPullUp方法
         this.$refs.scroll.scroll.finishPullUp()
+      
+        
       });
     },
 
@@ -114,6 +143,9 @@ export default {
         case 2:
           this.currentType = "sell";
       }
+      // 让两个tabcontrol的index保持一致
+      this.$refs.tabControlFack.currentIndex = index
+      this.$refs.tabControl.currentIndex = index
     },
 
     backTopClick() {
@@ -124,19 +156,25 @@ export default {
     // 监听回到顶部事件
     contentScroll(position) {
       // console.log(position)
+      // backtop是否显示
       if(position.y < -666) {
         this.showBackTop =  true
       }else {
         this.showBackTop =  false
       }
+      //是否吸顶
+      this.isTabFixed = (-position.y) > this.tabOffsetTop
     },
 
     loadMore() {
         console.log('shangla')
         this.getHomeTabData(this.currentType)
+        
         this.$refs.scroll.scroll.refresh() // better—scroll重新计算高度
-    }
+    },
     
+    
+
   },
   
 
@@ -162,12 +200,14 @@ export default {
   z-index: 999;
 }
 
-.tab-control {
-  position: sticky;
+/* .tab-control { */
+  /* position: sticky;
   z-index: 99;
-  top: 44px;
-  background-color: #fff;
-}
+  top: 44px; 
+                            滚动交给better-scroll管理后，position失效
+  */
+  /* background-color: #fff; */
+/* } */
 
 .content {
   height: calc(100% - 49px);
