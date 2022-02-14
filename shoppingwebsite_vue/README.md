@@ -533,3 +533,47 @@ mouted() {
     + 遍历
     + 解除Detail路由的keep-alive \<keep-alive exclude="Detail">
 
+### 详情商品基本信息展示GoodsBaseInfo
+
++ 服务器的数据杂乱，设计好数据结构对象保存需用到的数据
+
+  + 在detail.js中，将服务器返回数据封装在一个类中
+
+  ```javascript
+  export class GoodsInfo {            // es6语法
+      // 通过构造器定义变量来存储数据
+      constructor(itemInfo, columns, services) {
+          this.title = itemInfo.title,
+          this.desc = itemInfo.desc,
+          this.newPrice = itemInfo.price,
+      	this.oldPrice = itemInfo.oldPrice,
+      	this.colums = columns,
+      	this.services = services,
+      	this.realPrice = itemInfo.lowNowPrice    
+      }
+  }
+  ```
+
+  + 在Detail.vue中创建类对象保存数据
+
+  ```javascript
+  data() {
+      return: {
+          ...
+          goodsInfo: null
+      }
+  }
+  
+  created() {
+      ...
+      getDetail(this.iid).then(res => {
+          ...
+          this.goodsInfo = new GoodsInfo(res.result.itemInfo, res.result.columns,res.result.shopInfo.services)
+      })
+  }
+  ```
+
+  + 最终数据结构如下：
+
+  ![](image-20220214195210175.png)
+
