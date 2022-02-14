@@ -470,5 +470,66 @@ mouted() {
     this.$refs.tabControl.currentIndex = index
     ```
 
-    
+
+### Home记录离开时的状态和位置
+
++ \<keep-alive>
+
+     \<router-view>\</router-view>
+
+   \</keep-alive>\ 
+
+## 详情页开发
+
+### 点击GoodListsItem跳转详情页同时携带id
+
++ 创建views/detail组件
+
++ 配置路由
+
++ 监听GoodListItem点击
+
+  ```
+  itemClick() {
+  	this.$router.push('/detail/'+ this.goodsItem.iid)
+  }
+  ```
+
+### 详情页导航栏的封装
+
++ 结构
+
+  ```
+  --|views
+  	--|detail
+  		--|childComponents
+  			--|DetailNavBar.vue
+  		--|Detail.vue	
+  ```
+
++ 插槽左边放返回图标， 右边遍历四个标题
+
++ 请求详情页数据
+
+  + network/detail.js封装详情页数据， 带iiid参数，iid在GoodsItem点击时获取
+
+  + Detail.vue 中请求数据
+
+    + import {getDetail} from '../../network/detail'
+
+    + data() {return {topImages: []}} 
+
+    + 根据iid请求详情数据
+
+      ```javascript
+      getDetail(this.iid).then(res => {
+            console.log(res)
+            this.topImages = res.result.itemInfo.topImages
+          })
+      ```
+
+  + 在DetailSwiper.vue中展示数据
+
+    + 遍历
+    + 解除Detail路由的keep-alive \<keep-alive exclude="Detail">
 

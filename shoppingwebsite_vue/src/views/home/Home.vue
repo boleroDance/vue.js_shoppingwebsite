@@ -167,16 +167,16 @@ export default {
     },
 
     loadMore() {
-        console.log('shangla')
         this.getHomeTabData(this.currentType)
         
         this.$refs.scroll.scroll.refresh() // better—scroll重新计算高度
     },
     
-    
 
   },
-  
+  destroyed() {
+    console.log('destroyed')
+  }
 
 };
 </script>
