@@ -2,7 +2,7 @@
 <!-- ref 获取元素对象或组件对象 -->
   <div class="wrapper" ref="wrapper">
     <div class="content">
-    <slot></slot> h
+    <slot></slot> 
     </div>
   </div>
 </template>

@@ -547,15 +547,16 @@ mouted() {
           this.desc = itemInfo.desc,
           this.newPrice = itemInfo.price,
       	this.oldPrice = itemInfo.oldPrice,
-      	this.colums = columns,
+          this.discount = itemInfo.discountDesc,
+      	this.columns = columns,
       	this.services = services,
       	this.realPrice = itemInfo.lowNowPrice    
       }
   }
   ```
-
+  
   + 在Detail.vue中创建类对象保存数据
-
+  
   ```javascript
   data() {
       return: {
@@ -572,8 +573,24 @@ mouted() {
       })
   }
   ```
-
+  
   + 最终数据结构如下：
-
+  
   ![](image-20220214195210175.png)
 
++ 封装childCompnents/GoodsBaseInfo.vue并从Detail.vue拿到数据
++ 通过各种标签展示数据
+
+### 引入better-scroll
+
++ 隐藏TabBar（有待解决 v-show 处理路由渲染？ v-show: $route.meta.TabBar）
+
++ 注意CSS样式
+
+### 商家信息
+
++ Detail.vue 中获取数据
+
++ DetailShopInfo.vue 中展示
+
+  
