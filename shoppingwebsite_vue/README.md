@@ -590,7 +590,10 @@ mouted() {
 ### 商家信息
 
 + Detail.vue 中获取数据
-
 + DetailShopInfo.vue 中展示
 
-  
+### 商品信息
+
++ 同上
++ v-for 循环遍历二维数组
+

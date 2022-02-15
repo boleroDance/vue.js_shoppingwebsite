@@ -10,6 +10,8 @@
       <detail-swiper :topImages="topImages"></detail-swiper>
       <detail-base-info :goodsInfo="goodsInfo"></detail-base-info>
       <detail-shop-info :shop="shopInfo"></detail-shop-info>
+      <detail-image-info :detailInfo="detailInfo"></detail-image-info>
+      <detail-param-info :paramInfo="itemParams"></detail-param-info>
     </scroll>
   </div>
 </template>
@@ -19,13 +21,15 @@ import DetailNavBar from "./childComponents/DetailNavBar.vue";
 import DetailSwiper from "./childComponents/DetailSwiper.vue";
 import DetailBaseInfo from "./childComponents/DetailBaseInfo.vue";
 import DetailShopInfo from './childComponents/DetailShopInfo.vue';
+import DetailImageInfo from './childComponents/DetailImageInfo.vue';
+import DetailParamInfo from './childComponents/DetailParamInfo.vue';
 
 import { getDetail } from "../../network/detail";
 import { GoodsInfo } from "../../network/detail";
 import Scroll from "../../components/common/scroll/Scroll.vue";
 
 export default {
-  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo },
+  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo },
 
   name: "Detail",
   data() {
@@ -33,7 +37,9 @@ export default {
       iid: null,
       topImages: [],
       goodsInfo: {},
-      shopInfo: {}
+      shopInfo: {},
+      detailInfo: {},
+      itemParams: {}
     };
   },
   created() {
@@ -52,6 +58,10 @@ export default {
       );
       // 获取店铺信息数据
       this.shopInfo = res.result.shopInfo
+      // 获取详情数据
+      this.detailInfo = res.result.detailInfo
+      // 获取商品参数信息
+      this.itemParams = res.result.itemParams
     });
   },
 };
