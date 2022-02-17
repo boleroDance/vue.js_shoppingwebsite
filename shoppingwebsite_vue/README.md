@@ -612,3 +612,36 @@ mouted() {
 
 + 直接使用组件GoodList
 + 注意更改图片  
+
+### 内容和tab标题的联动效果
+
++ 点击tab标题，跳到对应内容
+
+  + tab组件内记录点击index，发送给Detail首页
+
+  + componentTopY: []
+
+  + titleClick(index) {
+
+    ​	this.$ref.scroll.scrollTo(0, -this.componentTopYs[index], 100)
+
+    }
+
+  + 所有数据渲染完成后调用nextTick回调获取各个组件的Y高度
+
+    + this.$nextTick(() => {
+
+      this.componentTopYs.push(0)
+
+      this.componentTopYs.push(this.$refs.param.$el.offsetTop)
+
+      ...
+
+      })
+
++ 拖动内容，tab对应的标题变为红色
+
+  
+
+### 底部工具栏
+

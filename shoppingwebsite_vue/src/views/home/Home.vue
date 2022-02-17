@@ -94,8 +94,8 @@ export default {
     // 图片加载完成的事件监听
     const refresh = debounce(this.$refs.scroll.refresh, 500)
     
-    this.$bus.$on('itemImageLoad', () => {
-      console.log('---------')
+    this.$bus.$on('homeItemImageLoad', () => {
+      console.log('首页图片加载完成')
       refresh()
     })
     // 获取tabcontrol 的 offsetTop

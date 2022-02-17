@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-      <detail-nav-bar></detail-nav-bar>
+      <detail-nav-bar @titleClick="titleClick"></detail-nav-bar>
       <scroll 
       class="content"
       :probeType="3"
@@ -10,10 +10,10 @@
       <detail-swiper :topImages="topImages"></detail-swiper>
       <detail-base-info :goodsInfo="goodsInfo"></detail-base-info>
       <detail-shop-info :shop="shopInfo"></detail-shop-info>
-      <detail-image-info :detailInfo="detailInfo"></detail-image-info>
-      <detail-param-info :paramInfo="itemParams"></detail-param-info>
-      <detail-comment-info :commentInfo="commentInfo"></detail-comment-info>
-      <goods-list :goods="recommendInfo"></goods-list>
+      <detail-image-info :detailInfo="detailInfo" @detailImageLoad="detailImageLoad"></detail-image-info>
+      <detail-param-info ref="param" :paramInfo="itemParams"></detail-param-info>
+      <detail-comment-info ref="comment" :commentInfo="commentInfo"></detail-comment-info>
+      <goods-list ref="recommend" :goods="recommendInfo"></goods-list>
     </scroll>
   </div>
 </template>
@@ -47,7 +47,8 @@ export default {
       detailInfo: {},
       itemParams: {},
       commentInfo: {},
-      recommendInfo: []
+      recommendInfo: [],
+      componentTopYs: [],
     };
   },
   created() {
@@ -76,13 +77,46 @@ export default {
       }
 
     });
-
     // 3. 请求推荐数据
     getRecommend().then(res => {
       console.log(res)
       this.recommendInfo = res.data.list
+      // 等所有数据渲染完成后调用nextTick回调获取各个组件的Y高度
+      // 但图片依旧还未加载完，目前的Y不包含图片高度
+      this.$nextTick(()=> {
+      this.componentTopYs.push(0)
+      this.componentTopYs.push(this.$refs.param.$el.offsetTop)
+      this.componentTopYs.push(this.$refs.comment.$el.offsetTop)
+      this.componentTopYs.push(this.$refs.recommend.$el.offsetTop)
+      console.log(this.componentTopYs)
     })
+    })
+    
   },
+  methods: {
+    titleClick(index) {
+      this.$refs.scroll.scrollTo(0,-this.componentTopYs[index],100)
+    },
+
+    detailImageLoad() {
+      this.$refs.scroll.scrollTo.refresh()
+    },
+  },
+
+  // 使用定时器延迟，等数据加载完成后拿到各个组件的Y高度，或者使用nextTick回调
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.componentTopYs.push(0)
+  //     this.componentTopYs.push(this.$refs.param.$el.offsetTop)
+  //     this.componentTopYs.push(this.$refs.comment.$el.offsetTop)
+  //     this.componentTopYs.push(this.$refs.recommend.$el.offsetTop)
+  //   }, 5000)
+  //   console.log(this.componentTopYs) 
+    
+  // },
+
+
+
 };
 </script>
 
@@ -97,7 +131,7 @@ export default {
 .content {
   background-color: #fff;
   /* height: calc( 100% - 44px); */
-  height: 574px;
+  height: 622px;
   overflow: hidden;
 }
 </style>

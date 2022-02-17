@@ -29,7 +29,11 @@ export default {
   methods: {
     //监听图片加载,图片一旦加载，scroll就刷新一次
     imageLoad() {
-      this.$bus.$emit('itemImageLoad')
+      if(this.$route.path.includes('/home')){
+        this.$bus.$emit('homeItemImageLoad')
+      }else if(this.$route.path.includes('/detail')){
+        this.$bus.$emit('detailItemImageLoad')
+      }
     },
     // 监听item点击，跳转详情页
     itemClick() {
