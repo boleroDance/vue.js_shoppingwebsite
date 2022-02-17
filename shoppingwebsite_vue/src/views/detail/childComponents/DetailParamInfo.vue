@@ -6,7 +6,15 @@
       </tr>
     </table>
 
-    <table></table>
+    <table class="info-param">
+      <tr v-for="(info, index) in paramInfo.info.set" :key="index">
+        <td class="info-param-key">{{info.key}}</td>
+        <td class="info-param-value">{{info.value}}</td>
+      </tr>
+    </table>
+    <div class="info-img" v-if="paramInfo.info.images">
+      <img :src="paramInfo.info.images" alt="">
+    </div>
   </div>
 </template>
 
@@ -42,7 +50,15 @@ export default {
   .param-info table tr td {
     border-bottom: 1px solid rgba(100,100,100,.1);
   }
+  .info-param-key {
+    /*当value的数据量比较大的时候, 会挤到key,所以给一个固定的宽度*/
+    width: 95px;
+  }
   .info-param {
     border-top: 1px solid rgba(0,0,0,.1);
   }
+  .param-value {
+    color: #eb4868
+  }
+
 </style>

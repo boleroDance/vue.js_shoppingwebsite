@@ -23,3 +23,10 @@ export class GoodsInfo {
     this.realPrice = itemInfo.lowNowPrice
   }
 }
+
+// 推荐数据的接口
+export function getRecommend() {
+  return request({
+    url: '/recommend'
+  })
+}

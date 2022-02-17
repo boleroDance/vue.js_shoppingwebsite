@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <img :src="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -21,6 +21,11 @@ export default {
       }
     }
   },
+  computed: {
+    showImage() {
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   methods: {
     //监听图片加载,图片一旦加载，scroll就刷新一次
     imageLoad() {
@@ -35,7 +40,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .goods-item {
     padding-bottom: 70px;
 

@@ -597,3 +597,18 @@ mouted() {
 + 同上
 + v-for 循环遍历二维数组
 
+### 用户评价
+
++ 时间戳转格式化日期
+
+  ```javascript
+  // 时间戳转成Date对象
+  const date = new Date(~*1000)
+  // 格式化，转换成对应的字符串
+  formate(date, 'yyyy-MM-dd')
+  ```
+
+### 商品推荐
+
++ 直接使用组件GoodList
++ 注意更改图片  

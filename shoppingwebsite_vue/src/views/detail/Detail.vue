@@ -12,6 +12,8 @@
       <detail-shop-info :shop="shopInfo"></detail-shop-info>
       <detail-image-info :detailInfo="detailInfo"></detail-image-info>
       <detail-param-info :paramInfo="itemParams"></detail-param-info>
+      <detail-comment-info :commentInfo="commentInfo"></detail-comment-info>
+      <goods-list :goods="recommendInfo"></goods-list>
     </scroll>
   </div>
 </template>
@@ -23,13 +25,17 @@ import DetailBaseInfo from "./childComponents/DetailBaseInfo.vue";
 import DetailShopInfo from './childComponents/DetailShopInfo.vue';
 import DetailImageInfo from './childComponents/DetailImageInfo.vue';
 import DetailParamInfo from './childComponents/DetailParamInfo.vue';
+import DetailCommentInfo from './childComponents/DetailCommentInfo.vue';
+import GoodsList from '../../components/content/goods/GoodsList.vue';
 
 import { getDetail } from "../../network/detail";
 import { GoodsInfo } from "../../network/detail";
+import {getRecommend} from "../../network/detail"
+
 import Scroll from "../../components/common/scroll/Scroll.vue";
 
 export default {
-  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo },
+  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList },
 
   name: "Detail",
   data() {
@@ -39,7 +45,9 @@ export default {
       goodsInfo: {},
       shopInfo: {},
       detailInfo: {},
-      itemParams: {}
+      itemParams: {},
+      commentInfo: {},
+      recommendInfo: []
     };
   },
   created() {
@@ -62,7 +70,18 @@ export default {
       this.detailInfo = res.result.detailInfo
       // 获取商品参数信息
       this.itemParams = res.result.itemParams
+      // 获取用户评价信息
+      if(res.result.rate !== 0){
+        this.commentInfo = res.result.rate.list[0]
+      }
+
     });
+
+    // 3. 请求推荐数据
+    getRecommend().then(res => {
+      console.log(res)
+      this.recommendInfo = res.data.list
+    })
   },
 };
 </script>
