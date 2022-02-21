@@ -16,6 +16,8 @@
       <detail-comment-info ref="comment" :commentInfo="commentInfo"></detail-comment-info>
       <goods-list ref="recommend" :goods="recommendInfo"></goods-list>
     </scroll>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
+    <back-top @click.native="backTopClick" v-show="showBackTop"></back-top>
   </div>
 </template>
 
@@ -28,6 +30,8 @@ import DetailImageInfo from './childComponents/DetailImageInfo.vue';
 import DetailParamInfo from './childComponents/DetailParamInfo.vue';
 import DetailCommentInfo from './childComponents/DetailCommentInfo.vue';
 import GoodsList from '../../components/content/goods/GoodsList.vue';
+import DetailBottomBar from './childComponents/DetailBottomBar.vue';
+import BackTop from '../../components/content/backTop/BackTop.vue';
 
 import { getDetail } from "../../network/detail";
 import { GoodsInfo } from "../../network/detail";
@@ -37,7 +41,7 @@ import Scroll from "../../components/common/scroll/Scroll.vue";
 
 
 export default {
-  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList },
+  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList, DetailBottomBar, BackTop },
 
   name: "Detail",
   data() {
@@ -51,7 +55,8 @@ export default {
       commentInfo: {},
       recommendInfo: [],
       componentTopYs: null,
-      scrollIndex: 0
+      scrollIndex: 0,
+      showBackTop: 'false',
     };
   },
   created() {
@@ -95,6 +100,8 @@ export default {
     // })
     })
     
+    // backTop默认不显示
+    this.showBackTop = false
   },
 
   methods: {
@@ -106,7 +113,7 @@ export default {
       this.componentTopYs.push(this.$refs.param.$el.offsetTop)
       this.componentTopYs.push(this.$refs.comment.$el.offsetTop)
       this.componentTopYs.push(this.$refs.recommend.$el.offsetTop)
-      console.log(this.componentTopYs)
+      // console.log(this.componentTopYs)
     },
     // 点击tab，滚动到对应内容
      titleClick(index) {
@@ -121,18 +128,31 @@ export default {
         this.scrollIndex = 0
         this.$refs.nav.currentIndex = this.scrollIndex
       } else if(positionY >= this.componentTopYs[1] && positionY < this.componentTopYs[2]){
-        console.log("index=1")
         this.scrollIndex = 1
         this.$refs.nav.currentIndex = this.scrollIndex
       } else if(positionY >= this.componentTopYs[2] && positionY < this.componentTopYs[3]){
-        console.log("index=2")
         this.scrollIndex = 2
         this.$refs.nav.currentIndex = this.scrollIndex
       } else {
-        console.log("index=3")
         this.scrollIndex = 3
         this.$refs.nav.currentIndex = this.scrollIndex
       }
+
+      // backTop是否显示
+      if(position.y < -666) {
+        this.showBackTop =  true
+      }else {
+        this.showBackTop =  false
+      }
+    },
+    // 回到顶部组件的点击监听
+    backTopClick() {
+      this.$refs.scroll.scrollTo(0,0,500)
+    },
+    // 点击加入购物车
+    addToCart() {
+      // 获取需要的信息
+      
     }
   },
 
@@ -164,7 +184,7 @@ export default {
 .content {
   background-color: #fff;
   /* height: calc( 100% - 44px); */
-  height: 622px;
+  height: 574px;
   overflow: hidden;
 }
 </style>

@@ -123,12 +123,9 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
        // better-scroll默认只加载一次，需要调finishPullUp方法
-        this.$refs.scroll.scroll.finishPullUp()
-      
-        
+        this.$refs.scroll.scroll.finishPullUp() 
       });
     },
-
     // 事件监听相关方法
     // 监听选项卡点击
     itemClick(index) {

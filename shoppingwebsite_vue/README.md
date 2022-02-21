@@ -648,7 +648,28 @@ mouted() {
 
 + 拖动内容，tab对应的标题变为红色
 
+  + scroll内监听滚动位置, 事件传到detail, @scroll=“contentScroll"
   
+  + contentScroll(position) {
+  
+    ​	const positionY = -position.y
+  
+    ​	if(positionY >= 0 && positionY < this.componentTopYs[1])){
+  
+    ​		this.scrollIndex = 0
+  
+    ​		this.$refs.nav.currentIndex = this.scrollIndex
+  
+    ​	} else if(...){...}
+  
+    }
+
+### BackTop组件
+
++ mixin 的使用
 
 ### 底部工具栏
+
++ 注册使用
++ 点击加入购物车
 
