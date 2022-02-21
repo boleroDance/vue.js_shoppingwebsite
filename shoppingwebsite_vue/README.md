@@ -619,7 +619,7 @@ mouted() {
 
   + tab组件内记录点击index，发送给Detail首页
 
-  + componentTopY: []
+  + componentTopY: null
 
   + titleClick(index) {
 
@@ -627,17 +627,24 @@ mouted() {
 
     }
 
-  + 所有数据渲染完成后调用nextTick回调获取各个组件的Y高度
+  + 监听推荐信息图片加载，等加载完后再计算高度
 
-    + this.$nextTick(() => {
-
-      this.componentTopYs.push(0)
-
-      this.componentTopYs.push(this.$refs.param.$el.offsetTop)
-
-      ...
-
-      })
+  ```
+  // 在DetailImageInfo里监听加载,发送给首页
+  @load="detailImageLoad
+  detailImageLoad() {
+        this.$emit('detailImageLoad')
+      }
+  // Detail中
+  detailImageLoad() {
+  	this.$refs.scroll.scroll.refresh()
+  	this.componentTopYs = []
+  	this.componentTopYs.push(0)
+  	this.componentTopYs.push(this.$refs.param.$el.offsetTop)
+  	...
+  }
+  
+  ```
 
 + 拖动内容，tab对应的标题变为红色
 

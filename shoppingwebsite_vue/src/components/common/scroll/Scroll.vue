@@ -39,7 +39,7 @@ export default {
     // })
   
     // 解决需刷新better scroll才起效果的bug 使用定时器
-    setTimeout(() => {this.scroll = new BScroll(this.$refs.wrapper, {
+    this.scroll = new BScroll(this.$refs.wrapper, {
       // observerDOM: true,
       // observeImage: true,
       click: true,
@@ -54,10 +54,9 @@ export default {
       this.$emit('scroll', position)
     })
     
-    if(this.scroll){
-      this.scroll.refresh()
-    }
-
+    // if(this.scroll){
+    //   this.scroll.refresh()
+    // }
 
     // 监听到底上拉事件
     this.scroll.on('pullingUp', () => {
@@ -66,7 +65,7 @@ export default {
     })
 
 
-    }, 1000);
+    
 
   },
 
@@ -74,6 +73,12 @@ export default {
     scrollTo(x,y,time) {
       this.scroll && this.scroll.scrollTo(x,y,time)
     },
+    refresh() {
+      this.scroll && this.scroll.refresh()
+    },
+    finishPullUp() {
+      this.scroll.finishPullUp()
+    }
   }
 }
 </script>

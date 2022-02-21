@@ -10,9 +10,9 @@
     <scroll 
     class="content" 
     ref="scroll" 
-    :probeType="3" 
+    :probe-type="3" 
     @scroll="contentScroll"
-    :pullUpLoad="true" 
+    :pull-up-load="true" 
     @pullingUp="loadMore">
       <home-swiper :banners="banners"></home-swiper>
         <recommend-view :recommends="recommends"></recommend-view>
@@ -168,7 +168,7 @@ export default {
 
     loadMore() {
         this.getHomeTabData(this.currentType)
-        
+        console.log(this.$refs.scroll.scroll)
         this.$refs.scroll.scroll.refresh() // better—scroll重新计算高度
     },
     

@@ -1,11 +1,12 @@
 <template>
   <div id="detail">
-      <detail-nav-bar @titleClick="titleClick"></detail-nav-bar>
+      <detail-nav-bar @titleClick="titleClick" ref="nav"></detail-nav-bar>
       <scroll 
       class="content"
       :probeType="3"
       :pullUpLoad="true"
-      ref="scroll"  
+      ref="scroll"
+      @scroll="contentScroll"    
       >
       <detail-swiper :topImages="topImages"></detail-swiper>
       <detail-base-info :goodsInfo="goodsInfo"></detail-base-info>
@@ -34,6 +35,7 @@ import {getRecommend} from "../../network/detail"
 
 import Scroll from "../../components/common/scroll/Scroll.vue";
 
+
 export default {
   components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList },
 
@@ -48,7 +50,8 @@ export default {
       itemParams: {},
       commentInfo: {},
       recommendInfo: [],
-      componentTopYs: [],
+      componentTopYs: null,
+      scrollIndex: 0
     };
   },
   created() {
@@ -83,24 +86,54 @@ export default {
       this.recommendInfo = res.data.list
       // 等所有数据渲染完成后调用nextTick回调获取各个组件的Y高度
       // 但图片依旧还未加载完，目前的Y不包含图片高度
-      this.$nextTick(()=> {
+    //   this.$nextTick(()=> {
+    //   this.componentTopYs.push(0)
+    //   this.componentTopYs.push(this.$refs.param.$el.offsetTop)
+    //   this.componentTopYs.push(this.$refs.comment.$el.offsetTop)
+    //   this.componentTopYs.push(this.$refs.recommend.$el.offsetTop)
+    //   console.log(this.componentTopYs)
+    // })
+    })
+    
+  },
+
+  methods: {
+    // 图片加载完后，计算componentTopYs
+    detailImageLoad() {
+      this.$refs.scroll.scroll.refresh()
+      this.componentTopYs = []
       this.componentTopYs.push(0)
       this.componentTopYs.push(this.$refs.param.$el.offsetTop)
       this.componentTopYs.push(this.$refs.comment.$el.offsetTop)
       this.componentTopYs.push(this.$refs.recommend.$el.offsetTop)
       console.log(this.componentTopYs)
-    })
-    })
-    
-  },
-  methods: {
-    titleClick(index) {
+    },
+    // 点击tab，滚动到对应内容
+     titleClick(index) {
       this.$refs.scroll.scrollTo(0,-this.componentTopYs[index],100)
     },
-
-    detailImageLoad() {
-      this.$refs.scroll.scrollTo.refresh()
-    },
+    // 监听滚动位置
+    contentScroll(position) {
+      // console.log(position)
+      const positionY = -position.y
+      // console.log(positionY)
+      if(positionY >= 0 && positionY < this.componentTopYs[1]) {
+        this.scrollIndex = 0
+        this.$refs.nav.currentIndex = this.scrollIndex
+      } else if(positionY >= this.componentTopYs[1] && positionY < this.componentTopYs[2]){
+        console.log("index=1")
+        this.scrollIndex = 1
+        this.$refs.nav.currentIndex = this.scrollIndex
+      } else if(positionY >= this.componentTopYs[2] && positionY < this.componentTopYs[3]){
+        console.log("index=2")
+        this.scrollIndex = 2
+        this.$refs.nav.currentIndex = this.scrollIndex
+      } else {
+        console.log("index=3")
+        this.scrollIndex = 3
+        this.$refs.nav.currentIndex = this.scrollIndex
+      }
+    }
   },
 
   // 使用定时器延迟，等数据加载完成后拿到各个组件的Y高度，或者使用nextTick回调
