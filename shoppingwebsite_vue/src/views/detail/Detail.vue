@@ -124,7 +124,7 @@ export default {
       // console.log(position)
       const positionY = -position.y
       // console.log(positionY)
-      if(positionY >= 0 && positionY < this.componentTopYs[1]) {
+      if(positionY > 0 && positionY < this.componentTopYs[1]) {
         this.scrollIndex = 0
         this.$refs.nav.currentIndex = this.scrollIndex
       } else if(positionY >= this.componentTopYs[1] && positionY < this.componentTopYs[2]){
@@ -151,8 +151,16 @@ export default {
     },
     // 点击加入购物车
     addToCart() {
-      // 获取需要的信息
-      
+      // 获取购物车需要的信息
+      const product = {}
+      product.iid = this.iid
+      product.image = this.topImages[0]
+      product.title = this.goodsInfo.title
+      product.desc = this.goodsInfo.desc
+      product.price = this.goodsInfo.realPrice
+      // 将商品添加到购物车
+      // 数据先放在vuex，等购物车组件创建完后再放进去
+      this.$store.commit('addCart', product)
     }
   },
 

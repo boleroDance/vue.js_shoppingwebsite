@@ -673,3 +673,29 @@ mouted() {
 + 注册使用
 + 点击加入购物车
 
+  + 获取购物车所需信息
+
+    + const product = {}
+
+    + product.iid = this.iid
+
+      product.image = this.topImages[0]
+
+      ...
+
+  + this. $store.commit('addCart', product)提交到vuex管理
+
+    ```javascript
+    state: {
+        cartList: []
+      },
+    mutations: {
+        addCart(state, payload) {
+            ...
+            state.cartList.push(payload)
+        }
+    } 
+    ```
+
+  + 重构vuex代码，actions-》mutations （待解决)
+
