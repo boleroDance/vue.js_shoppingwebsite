@@ -699,3 +699,58 @@ mouted() {
 
   + 重构vuex代码，actions-》mutations （待解决)
 
+## 购物车页面开发
+
+### 购物车NavBar的实现
+
++ 导入common->NavBar
+
++ 从getter.js中获取cartLength
+
+  ```
+  export default {
+    cartLength(state) {
+      return state.cartList.length
+    }
+  }
+  ```
+
++ vuex内置的辅助函数：当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余
+
+  + mapGetters
+
+  + 导入mapGetters -》 import { mapGetters } from 'vuex'
+
+  + 使用 
+
+    computed: {
+
+    ...mapGetters['cartLength', '...', '...']
+
+    }
+
++ 引入Better-scroll
+
+  + \#cart {
+
+      height: 100vh
+
+    }
+
+  + 给scroll设置高度 class="content" .content  {height: calc(100% - 44px - 49px);
+
+    overflow: hidden;
+
+    }
+
++ 解决better-scroll滚动问题
+
+  ```
+  activated() {
+  	// 在vue对象存活的情况下，切换页面触发，即可反复触发 对
+      this.$refs.scroll.scroll.refresh()
+    }
+  ```
+
+  
+

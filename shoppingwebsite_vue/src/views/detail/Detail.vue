@@ -182,7 +182,7 @@ export default {
 </script>
 
 <style scoped>
-.detail {
+#detail {
   height: 100vh;
   position: relative;
   z-index: 999;
@@ -191,8 +191,8 @@ export default {
 
 .content {
   background-color: #fff;
-  /* height: calc( 100% - 44px); */
-  height: 574px;
+  height: calc( 100% - 44px);
+  /* height: 574px; */
   overflow: hidden;
 }
 </style>
