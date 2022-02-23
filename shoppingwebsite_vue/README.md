@@ -479,7 +479,7 @@ mouted() {
 
    \</keep-alive>\ 
 
-## 详情页开发
+# 详情页开发
 
 ### 点击GoodListsItem跳转详情页同时携带id
 
@@ -699,7 +699,7 @@ mouted() {
 
   + 重构vuex代码，actions-》mutations （待解决)
 
-## 购物车页面开发
+# 购物车页面开发
 
 ### 购物车NavBar的实现
 
