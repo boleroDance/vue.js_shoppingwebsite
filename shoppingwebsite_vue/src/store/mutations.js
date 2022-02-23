@@ -11,6 +11,7 @@ export default {
     if(sameProduct) {
       sameProduct.count += 1
     } else {
+      payload.checked = true
       payload.count = 1
       this.state.cartList.push(payload)
     }

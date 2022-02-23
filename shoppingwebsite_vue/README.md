@@ -747,10 +747,49 @@ mouted() {
 
   ```
   activated() {
-  	// 在vue对象存活的情况下，切换页面触发，即可反复触发 对
+  	// 在vue对象存活的情况下，切换页面触发，即可反复触发
       this.$refs.scroll.scroll.refresh()
     }
   ```
 
-  
+### 购物车商品列表展示CartList和CartListItem
+
++ CartList中使用mapGetters获取cartList数据
++ GoodListItem 分别展示CartList中的数据
+
+### 封装勾选按钮checkButton
+
++ 设置checkButton勾选状态
+
+  + 修改数据不要在页面中直接修改，放入模型中，再根据模型渲染DOM
+
+  + 在checkButton中
+
+    + 添加类 :class="{'selector-active': isChecked}"
+
+    + props: {
+
+        isChecked: {
+
+         type: Boolean,
+
+         default: false
+
+        }
+
+       }	
+
+  + 在mutations中为商品添加Checked属性
+    + payload.checked = true
+  + 在CartlistItem中，从模型中拿到属性 :isChecked="itemInfo.checked"
+
++ 监听checkButton的点击
+
+  + 监听组件点击 @click.native="checkClick"
+
+  + checkClick() {
+
+       this.itemInfo.checked = !this.itemInfo.checked
+
+      }
 

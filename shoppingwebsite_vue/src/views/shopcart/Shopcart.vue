@@ -13,6 +13,7 @@
     <cart-list>
     </cart-list>
     </scroll>
+    <cart-bottom-bar></cart-bottom-bar>
   </div>
 </template>
 
@@ -20,11 +21,9 @@
 import { mapGetters } from 'vuex'
 import NavBar from '../../components/common/navbar/NavBar.vue'
 import CartList from './childComps/CartList.vue'
+import CartBottomBar from './childComps/CartBottomBar.vue'
 
 import Scroll from '../../components/common/scroll/Scroll.vue'
-
-
-
 
 export default {
   name: "Shopcart",
@@ -32,6 +31,7 @@ export default {
     NavBar,
     CartList,
     Scroll,
+    CartBottomBar,
   },
   computed: {
     // cartLength() {
@@ -40,7 +40,6 @@ export default {
     ...mapGetters(['cartLength'])
   },
   activated() {
-    console.log("---------")
     this.$refs.scroll.scroll.refresh()
   }
   
