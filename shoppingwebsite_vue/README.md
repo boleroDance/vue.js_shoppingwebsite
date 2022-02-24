@@ -793,3 +793,50 @@ mouted() {
 
       }
 
++ 合计选中商品价格
+
+  + totalPrice() {
+
+    ​	this.cartList.filter(item => {
+
+    ​		return item.checked
+
+    ​	}).reduce((sum, item) => {
+
+    ​		return sum + item.price * item.count
+
+    ​	}, 0)
+
+    }
+
++ 去结账件数（同上）
+
++ 全选全不选
+
+  + 通过修改CheckButton已经定义好的属性isCheck
+
+  + 在CartBottomBar 中 :is-checked = "isSelectAll"
+
+  + isSelectAll() {
+
+    ​    if(this.cartList.length === 0) return false
+
+    ​    return this.cartList.length === this.checkedLength
+
+       }
+
++ 点击全选按钮，当全选中状态时，将map中的checked修改为false，反之亦然
+
+  + selectAllClick() {
+
+       if(this.isSelectAll) {
+
+    ​    this.cartList.forEach(item => item.checked = false)
+
+       }else {
+
+    ​    this.cartList.forEach(item => item.checked = true)
+
+       }
+
+      }

@@ -1,9 +1,13 @@
 <template>
   <div class="bottom-menu">
-    <check-button class="select-all"></check-button>
+    <check-button 
+    @click.native="selectAllClick"
+     class="select-all"
+     :is-checked = "isSelectAll"
+     ></check-button>
     <span>全选</span>
-    <span class="total-price">合计:</span>
-    <span class="buy-product">去结账()</span>
+    <span class="total-price">合计:￥{{totalPrice}}</span>
+    <span class="buy-product">去结账({{checkedLength}})</span>
   </div>
 
 
@@ -18,8 +22,34 @@ export default {
   components: {
     CheckButton
   },
+ 
   computed: {
-    ...mapGetters(['cartList'])
+    ...mapGetters(['cartList']),
+    // 变量totalprice保存勾选商品的总价
+    totalPrice() {
+      return this.$store.getters.cartList.filter(item => {
+        return item.checked
+      }).reduce((sum, item) => {
+        return sum + item.price * item.count
+      }, 0).toFixed(2)
+    },
+    checkedLength() {
+      return this.cartList.filter(item => item.checked).length
+    },
+    isSelectAll() {
+        if(this.cartList.length === 0) return false
+        return this.cartList.length === this.checkedLength
+      }
+  },
+  methods: {
+    selectAllClick() {
+      // console.log(this.isSelectAll)
+      if(this.isSelectAll) {
+        this.cartList.forEach(item => item.checked = false)
+      }else {
+        this.cartList.forEach(item => item.checked = true)
+      }
+    }
   }
 }
 </script>
@@ -48,7 +78,7 @@ export default {
     top: 13px;
   }
   .bottom-menu .total-price {
-    margin-left: 15px;
+    margin-left: 19px;
     font-size: 16px;
     color: #666;
   }
