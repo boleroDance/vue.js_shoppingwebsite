@@ -18,6 +18,7 @@
     </scroll>
     <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
     <back-top @click.native="backTopClick" v-show="showBackTop"></back-top>
+    <!-- <toast :message="message" :show="show"></toast> -->
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import DetailCommentInfo from './childComponents/DetailCommentInfo.vue';
 import GoodsList from '../../components/content/goods/GoodsList.vue';
 import DetailBottomBar from './childComponents/DetailBottomBar.vue';
 import BackTop from '../../components/content/backTop/BackTop.vue';
+// import Toast from '../../components/common/toast/Toast.vue'
 
 import { getDetail } from "../../network/detail";
 import { GoodsInfo } from "../../network/detail";
@@ -39,9 +41,10 @@ import {getRecommend} from "../../network/detail"
 
 import Scroll from "../../components/common/scroll/Scroll.vue";
 
+import {mapActions} from 'vuex'
 
 export default {
-  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList, DetailBottomBar, BackTop },
+  components: { DetailNavBar, DetailSwiper, DetailBaseInfo, Scroll, DetailShopInfo, DetailImageInfo, DetailParamInfo, DetailCommentInfo, GoodsList, DetailBottomBar, BackTop, },
 
   name: "Detail",
   data() {
@@ -105,6 +108,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['addCart']),
     // 图片加载完后，计算componentTopYs
     detailImageLoad() {
       this.$refs.scroll.scroll.refresh()
@@ -136,7 +140,7 @@ export default {
       } else {
         this.scrollIndex = 3
         this.$refs.nav.currentIndex = this.scrollIndex
-      }
+      } 
 
       // backTop是否显示
       if(position.y < -666) {
@@ -151,17 +155,34 @@ export default {
     },
     // 点击加入购物车
     addToCart() {
-      // 获取购物车需要的信息
+      // 1. 获取购物车需要的信息
       const product = {}
       product.iid = this.iid
       product.image = this.topImages[0]
       product.title = this.goodsInfo.title
       product.desc = this.goodsInfo.desc
       product.price = this.goodsInfo.realPrice
-      // 将商品添加到购物车
+      // 2. 将商品添加到购物车
       // 数据先放在vuex，等购物车组件创建完后再放进去
       // this.$store.commit('addCart', product)
-      this.$store.dispatch('addCart', product)
+      // actions -> mutations -> state
+      // this.$store.dispatch('addCart', product).then(res => {
+      //   console.log(res)                               
+      // })
+      // 3. toast 显示弹窗添加到购物车成功
+      // 异步操作 需等添加成功后执行 actions返回一个promise
+      this.addCart(product).then(res => {
+        // console.log(res)
+        // this.show = true
+        // this.message = res
+        // setTimeout(() => {
+        //   this.show = false;
+        //   this.message = ''
+        // }, 1500);
+        this.$toast.show(res, 1500)
+        console.log(this.$toast)
+        // this.$toast.show(res, 1500)
+      })
     }
   },
 

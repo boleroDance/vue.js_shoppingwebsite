@@ -730,17 +730,63 @@ mouted() {
   // mutations
   [ADD_COUNTER](state, payload) {
       payload.count++
-   },
-    [ADD_TO_CART](state, payload) {
+  },
+  [ADD_TO_CART](state, payload) {
       state.cartList.push(payload)
-    }
+  }
   ```
 
   
 
 ### “您已添加至购物车”
 
-+ Toast
++ 涉及异步操作，需等添加到购物车后再执行
+
+  #### 手写toast插件
+
+  + 安装vue.js插件，如果插件为一个对象，必须提供install方法，如果插件为函数，它会作为install方法，install方法调用时，会将Vue作为参数传入。
+  + 基本使用
+
+  ```javascript
+  // toast文件下创建index.js
+  import Toast from '...'
+  const obj = {}
+  obj.install = function(Vue) {
+      /document.body.appendChild(Toast.$el) //  failed to execute appendchild on node
+       // 解决方法： 创建组件构造器
+      
+      Vue.prototype.$toast = Toast
+  }
+  export default obj
+  
+  // main.js中安装toast插件
+  Vue.use(toast)
+  
+  // Toast.vue内
+  data() {
+        return {
+          message: '',
+          show: false
+        }
+      },
+  methods: {
+       show(message, duration) {
+         this.show = true
+         this.message = message
+  
+         setTimeout(() => {  
+           this.show = false
+           this.message = ''
+         }, duration);
+       } 
+      },
+    }
+    
+  // 使用插件
+   this.$toast.show(res, 1500)
+  ```
+
+  
 
 # 购物车页面开发
 
