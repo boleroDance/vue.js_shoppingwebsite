@@ -671,6 +671,7 @@ mouted() {
 ### 底部工具栏
 
 + 注册使用
+
 + 点击加入购物车
 
   + 获取购物车所需信息
@@ -697,7 +698,49 @@ mouted() {
     } 
     ```
 
-  + 重构vuex代码，actions-》mutations （待解决)
+  #### 重构vuex代码
+
++ 涉及知识 Actions 和 mutations
+
+  + mutations
+    + Mutation唯一用于变更store state中的数据
+    + 不可以直接操作store中的数据
+  + Actions
+    + Action 提交的是 mutation，而不是直接变更状态
+    + Action用于处理异步任务
+
++ 将两种事件(添加新的商品addtocart和添加同一商品增加数量addcounter)通过actions做判断拆分为两种事件，分别通过context.commit调用mutations里的函数
+
+  ```javascript
+  // actions
+  addCart(context, payload) {
+      let sameProduct = null
+      for (let item of context.state.cartList) {
+        if (item.iid === payload.iid) {
+          sameProduct = item
+        }
+      }
+      if (sameProduct) {
+        context.commit(ADD_COUNTER, sameProduct)
+      } else {
+        payload.checked = true
+        payload.count = 1
+        context.commit(ADD_TO_CART, payload)
+      }
+  // mutations
+  [ADD_COUNTER](state, payload) {
+      payload.count++
+   },
+    [ADD_TO_CART](state, payload) {
+      state.cartList.push(payload)
+    }
+  ```
+
+  
+
+### “您已添加至购物车”
+
++ Toast
 
 # 购物车页面开发
 
@@ -840,3 +883,4 @@ mouted() {
        }
 
       }
+

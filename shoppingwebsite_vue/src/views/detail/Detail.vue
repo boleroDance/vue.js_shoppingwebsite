@@ -160,7 +160,8 @@ export default {
       product.price = this.goodsInfo.realPrice
       // 将商品添加到购物车
       // 数据先放在vuex，等购物车组件创建完后再放进去
-      this.$store.commit('addCart', product)
+      // this.$store.commit('addCart', product)
+      this.$store.dispatch('addCart', product)
     }
   },
 
