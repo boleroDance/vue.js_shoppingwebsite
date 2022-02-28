@@ -179,7 +179,7 @@ export default {
         //   this.show = false;
         //   this.message = ''
         // }, 1500);
-        this.$toast.show(res, 1500)
+        this.$toast.show("添加购物车成功", 1500)
         console.log(this.$toast)
         // this.$toast.show(res, 1500)
       })

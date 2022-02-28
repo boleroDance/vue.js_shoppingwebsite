@@ -1,6 +1,6 @@
 <template>
-  <div class="toast" v-show="show">
-    <div>{{message}}</div>
+  <div class="toast" v-show="isShow">
+    <div class="message">{{message}}</div>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
       }
     },
     methods: {
-     show(message, duration) {
+     show(message, duration=2000) {
        this.isShow = true
        this.message = message
 
@@ -42,9 +42,10 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding:4px 16px;
     color: #fff;
+    padding:5px 9px;
     background-color: rgba(0,0, 0, .5);
     z-index: 9999;
   }
+
 </style>

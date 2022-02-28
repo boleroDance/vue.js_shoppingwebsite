@@ -754,8 +754,12 @@ mouted() {
   obj.install = function(Vue) {
       /document.body.appendChild(Toast.$el) //  failed to execute appendchild on node
        // 解决方法： 创建组件构造器
+      const toastContrustor = Vue.extend(Toast)
+      const toast = new toastContrustor()
+      toast.$mount(document.creatElement('div'))
+      document.body.appendChild(toast.$el)
       
-      Vue.prototype.$toast = Toast
+      Vue.prototype.$toast = toast
   }
   export default obj
   
@@ -766,16 +770,16 @@ mouted() {
   data() {
         return {
           message: '',
-          show: false
+          isShow: false
         }
       },
   methods: {
-       show(message, duration) {
-         this.show = true
+       show(message, duration=2000) {
+         this.isShow = true
          this.message = message
   
          setTimeout(() => {  
-           this.show = false
+           this.isShow = false
            this.message = ''
          }, duration);
        } 
@@ -785,7 +789,7 @@ mouted() {
   // 使用插件
    this.$toast.show(res, 1500)
   ```
-
+  
   
 
 # 购物车页面开发
@@ -929,4 +933,18 @@ mouted() {
        }
 
       }
+
+# 移动端部分改进
+
+### fastClick减少点击延迟
+
++ [官网地址](https://github.com/ftlabs/fastclick)
+
++ 解决移动端浏览器300毫秒点击延迟问题
++ 实现原理：在检测到touched事件时，通过DOM自定义事件立即出发模拟一个click事件，并把浏览器在300ms之后的click事件阻止掉。
++ 安装
++ 引入
++ 使用 FastClick.attach(document.body)
+
+### vue-lazyLoad
 

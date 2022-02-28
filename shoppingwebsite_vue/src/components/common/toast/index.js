@@ -1,6 +1,6 @@
 import Toast from './Toast.vue'
 // 手写一个toast插件
-const obj = {}
+const obj = {}                 
 obj.install = function (Vue) {
   // console.log('执行了obj的install函数', Vue)
   // document.body.appendChild(Toast.$el)

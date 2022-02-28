@@ -7,7 +7,9 @@
      ></check-button>
     <span>全选</span>
     <span class="total-price">合计:￥{{totalPrice}}</span>
-    <span class="buy-product">去结账({{checkedLength}})</span>
+    <span class="buy-product"
+    @click="buyProductClick"
+    >去结账({{checkedLength}})</span>
   </div>
 
 
@@ -49,6 +51,12 @@ export default {
       }else {
         this.cartList.forEach(item => item.checked = true)
       }
+    },
+    buyProductClick() {
+      if(this.cartList.filter(item => item.checked).length==0) {
+        this.$toast.show("请选择购买的商品")
+      }
+      
     }
   }
 }
