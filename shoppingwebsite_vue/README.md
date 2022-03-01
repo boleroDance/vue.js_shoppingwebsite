@@ -948,3 +948,15 @@ mouted() {
 
 ### vue-lazyLoad
 
++ 安装
+
++ 引入
+
++ 使用
+
+  Vue.use(VueLazyLoad, {
+
+  ​	loading: requre('占位图路径')
+
+  })
+
