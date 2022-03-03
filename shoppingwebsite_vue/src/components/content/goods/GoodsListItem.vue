@@ -23,7 +23,16 @@ export default {
   },
   computed: {
     showImage() {
-      return this.goodsItem.image || this.goodsItem.show.img
+      // return this.goodsItem.image || this.goodsItem.show.img || this.goodsItem.img
+      if(this.goodsItem.img) {
+        return this.goodsItem.img
+      }else if(this.goodsItem.show.img) {
+        return this.goodsItem.show.img
+      }else if(this.goodsItem.image){
+        return this.goodsItem.image
+      }else {
+        return null
+      }
     }
   },
   methods: {
@@ -46,8 +55,7 @@ export default {
 
 <style scoped>
   .goods-item {
-    padding-bottom: 70px;
-
+    padding-bottom: 96px;
     width: 46%;
     position: relative;
   }
@@ -61,11 +69,12 @@ export default {
   .goods-info {
     font-size: 12px;
     position: absolute;
-    bottom: 2px;
+    /* bottom: 2px; */
     left: 0;
     right: 0;
     overflow: hidden;
     text-align: center;
+    margin-top: 8px;
   }
 
   .goods-info .price {

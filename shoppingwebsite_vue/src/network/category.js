@@ -18,12 +18,11 @@ export function getSubcategory(maitKey) {
 }
 
 // 获取每个子分类里的商品信息
-export function getCategoryDetail(miniWallKey, type) {
+export function getCategoryDetail(miniWallkey) {
   return request({
     url: "/subcategory/detail",
     params: {
-      miniWallKey,
-      type
+      miniWallkey,
     }
   })
 }
