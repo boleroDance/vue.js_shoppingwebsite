@@ -4,18 +4,22 @@
     <div class="cateBox">
       <div class="cateType">
         <ul>
-          <li v-for="(item, index) in typeList" :key="index">
+          <li v-for="(item, index) in typeList" :key="index"
+          :class="{active: nowIndex == index}"
+          @click="typeClick(index, item.maitKey, item.miniWallkey)"
+          >
             {{ item.title }}
           </li>
         </ul>
       </div>
 
       <scroll 
-      class="content"
+      class="goods-content"
       :probe-type="3"
       ref="scroll"
+      :pullUpLoad="true"
       >
-     
+        
           <div class="goods-type">
             <div
               class="good-type-item"
@@ -27,7 +31,8 @@
             </div>
           </div>
           <goods-list :goods="goodsList"></goods-list>
-      
+     
+
       </scroll>
     </div>
   </div>
@@ -73,12 +78,17 @@ export default {
       
   },
   methods: {
-    // typeClick(index, key) {
+    typeClick(index, maitKey, miniWallkey) {
+      console.log(index, maitKey, miniWallkey)
+      this.nowIndex = index
+      this.getSubcategory(maitKey)
+      this.getCategoryDetail(miniWallkey)
+      this.$refs.scroll.scroll.refresh()
 
-    // },
+    },
     //获取商品类型分类
-    getSubcategory(key) {
-      getSubcategory(key).then((res) => {
+    getSubcategory(maitKey) {
+      getSubcategory(maitKey).then((res) => {
         this.subCateList = res.data.list;
       });
     },
@@ -87,8 +97,12 @@ export default {
     getCategoryDetail(miniWallkey) {
       getCategoryDetail(miniWallkey).then((res) => {
         this.goodsList = res;
+        this.$refs.scroll.scroll.finishPullUp() 
+        this.$refs.scroll.scroll.refresh()
       });
     },
+
+
   },
 };
 </script>
@@ -103,7 +117,7 @@ export default {
   height: 100vh;
   position: relative;
 }
-.content {
+.goods-content {
   height: 100%;
   overflow: hidden;
   flex: 8;
@@ -125,8 +139,9 @@ export default {
   color: rgb(119, 119, 119);
 }
 li {
-  padding: 15px;
-  height: 35px;
+  /* padding: 15px; */
+  height: 36px;
+  line-height: 36px;
 }
 /* .cateGoods {
   flex: 8;
@@ -144,5 +159,11 @@ li {
 }
 .good-type-item img {
   width: 96%;
+}
+.active {
+  font-weight: 550;
+  background-color: #fff;
+  border-left: 4px solid var(--color-high-text);
+  color: var(--color-high-text);
 }
 </style>

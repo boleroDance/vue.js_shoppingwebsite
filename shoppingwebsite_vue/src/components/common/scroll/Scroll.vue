@@ -40,8 +40,8 @@ export default {
   
     // 解决需刷新better scroll才起效果的bug 使用定时器
     this.scroll = new BScroll(this.$refs.wrapper, {
-      // observerDOM: true,
-      // observeImage: true,
+      observerDOM: true,
+      observeImage: true,
       click: true,
       // probeType: 3 影响性能，并非所有页面都需要监听滚动，因此设置props外部传入probeType值，默认为0 -》 不监听
       probeType: this.probeType,
