@@ -1,5 +1,6 @@
 <template>
   <div id="category">
+    <back-top @click.native="backTopClick" v-show="isShow"></back-top>
     <nav-bar class="nav-bar"><div slot="center">商品分类</div></nav-bar>
     <div class="cateBox">
       <div class="cateType">
@@ -18,6 +19,7 @@
       :probe-type="3"
       ref="scroll"
       :pullUpLoad="true"
+      @scroll="contentScroll"
       >
         
           <div class="goods-type">
@@ -35,12 +37,14 @@
 
       </scroll>
     </div>
+    
   </div>
 </template>
 
 <script>
 import NavBar from "../../components/common/navbar/NavBar.vue";
 import Scroll from "../../components/common/scroll/Scroll.vue";
+import BackTop from '../../components/content/backTop/BackTop.vue';
 import GoodsList from "../../components/content/goods/GoodsList.vue";
 
 import {
@@ -50,7 +54,7 @@ import {
 } from "../../network/category";
 
 export default {
-  components: { NavBar, GoodsList, Scroll },
+  components: { NavBar, GoodsList, Scroll, BackTop },
   name: "Category",
   data() {
     return {
@@ -58,6 +62,7 @@ export default {
       nowIndex: 0,
       subCateList: [],
       goodsList: [],
+      isShow: "false"
     };
   },
   
@@ -73,8 +78,7 @@ export default {
         this.getCategoryDetail(this.typeList[this.nowIndex].miniWallkey);
         this.$refs.scroll.scroll.refresh()
       });
-
-      console.log(this.$refs.scroll.scroll)
+      
       
   },
   methods: {
@@ -83,8 +87,7 @@ export default {
       this.nowIndex = index
       this.getSubcategory(maitKey)
       this.getCategoryDetail(miniWallkey)
-      this.$refs.scroll.scroll.refresh()
-
+      this.$refs.scroll.scroll.scrollTo(0,0,0)
     },
     //获取商品类型分类
     getSubcategory(maitKey) {
@@ -97,12 +100,24 @@ export default {
     getCategoryDetail(miniWallkey) {
       getCategoryDetail(miniWallkey).then((res) => {
         this.goodsList = res;
-        this.$refs.scroll.scroll.finishPullUp() 
-        this.$refs.scroll.scroll.refresh()
+        // this.$refs.scroll.scroll.finishPullUp() 
+        // this.$refs.scroll.scroll.refresh()
       });
     },
 
+    backTopClick() {
+      this.$refs.scroll.scroll.scrollTo(0,0,500)
+    },
 
+    // 监听滚动
+    contentScroll(position) {
+      console.log(position)
+      if(position.y < -1200){
+        this.isShow = true
+      } else {
+        this.isShow = false
+      }
+    }
   },
 };
 </script>
@@ -139,13 +154,10 @@ export default {
   color: rgb(119, 119, 119);
 }
 li {
-  /* padding: 15px; */
   height: 36px;
   line-height: 36px;
 }
-/* .cateGoods {
-  flex: 8;
-} */
+
 .goods-type {
   display: flex;
   justify-content: space-between;
