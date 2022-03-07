@@ -1,9 +1,8 @@
 'use strict'
 const webpack = require('webpack')
 
-
 module.exports = {
-    publicPath: '/',
+    publicPath: '/vue.js_shoppingwebsite/',
     outputDir: 'dist',
     runtimeCompiler: true,
     productionSourceMap: false,
