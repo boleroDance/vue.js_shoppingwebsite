@@ -73,9 +73,19 @@ export default {
       currentType: "pop",
       showBackTop: 'false',
       tabOffsetTop: 0,
-      isTabFixed: false
+      isTabFixed: false,
+      // mytitle: 'vve',
+      // http: 'Content-Security-Policy',
+      // cont: 'upgrade-insecure-requests' 
     };
   },
+  // metaInfo() {
+  //   return {
+  //     title: this.mytitle,
+      
+      
+  //   }
+  // },
   created() {
     // 函数调用，变量压入函数栈，调用结束，弹出函数栈，释放所有变量
     // 1. 请求getHomeMultidata数据

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <keep-alive exclude="Detail">
+    <keep-alive exclude="Profile">
       <router-view></router-view>
     </keep-alive>
-    <main-tab-bar v-show="!$route.path.includes('/detail')"></main-tab-bar>
+    <main-tab-bar v-show="isShow"></main-tab-bar>
   </div>
 </template>
 
@@ -23,6 +23,12 @@ export default {
      */
     const { NODE_ENV } = process.env;
     document.documentElement.className = NODE_ENV;
+
+  },
+  computed: {
+    isShow() {
+      return !this.$route.path.includes('/detail')
+    }
   }
 };
 </script>

@@ -9,10 +9,6 @@
     <div :class="{ active: isActive}">
       <slot name="item-text"></slot>
     </div>
-    <!-- <img src="../../../assets/image/tabbar/home.svg" alt="">
-    <div>
-      首页
-    </div> -->
   </div>
 </template>
 

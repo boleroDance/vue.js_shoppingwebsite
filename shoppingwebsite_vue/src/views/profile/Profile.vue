@@ -1,9 +1,9 @@
 <template>
   <div id="profile">
     <nav-bar class="profile-nav">
-      <div slot="center">波麗露的商城</div>
+      <div slot="center">商城</div>
     </nav-bar>
-    <user-info></user-info>
+    <user-info @login-click="loginClick" @logout-click="logoutClick"></user-info>
     <!-- 账户部分没有单独封装：不同的地方太多, 需要传过多的参数 -->
     <section class="account">
       <div class="account-item">
@@ -28,6 +28,8 @@
 import NavBar from "../../components/common/navbar/NavBar.vue";
 import ListView from './childComps/ListView.vue';
 import UserInfo from "./childComps/UserInfo.vue";
+
+
 export default {
   name: "Profile",
   components: {
@@ -47,7 +49,29 @@ export default {
         {icon: '#download', iconColor: '#ff8198', info: '下载购物APP'},
       ]
     }
+  },
+  methods: {
+    loginClick() {
+      this.$router.push('/login')
+    },
+    logoutClick() {
+      // 退出登陆
+      // 发请求，服务器清除数据【token -> 本地清除数据【userinfo，token等
+      this.$store.dispatch('userLogout')
+      .then( res => {
+        this.$message.success('您已退出登陆')
+        this.$router.push('/home')
+      })
+    }
+  },
+  
+  mounted() {
+    console.log('加载完成')
+    // 组件加载完毕后（登录操作完成）向服务器要用户信息
+    this.$store.dispatch('getUserInfo')
+    
   }
+
 };
 </script>
 

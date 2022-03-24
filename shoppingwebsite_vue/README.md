@@ -94,8 +94,69 @@ module.exports = {
 
 ## 首页数据请求
 
-+ 封装request.js
-+ home.js负责首页数据请求
++ 对axios进行二次封装
+
+  + 为什么要进行二次封装
+    + 和请求拦截器、响应拦截器相关
+    + 请求拦截器：可以在发送请求之前先处理一些业务
+    + 响应拦截器： 当服务器数据返回后，可以先处理一些业务
+
+  ```javascript
+  // request.js
+  import axios from 'axios'
+  export function request(config) {
+  	const instance = axios.create({
+      baseURL: 'http://XXX/api',
+      timeout: 5000
+    })
+      // 请求拦截
+   	instance.interceptors.request.use(config => {
+      // config 配置对象 对象里面有一个属性很重要 header请求头
+      return config
+    })
+      // 响应拦截
+    	instance.interceptors.response.use(res => {
+      return res.data
+    }, err => {
+      console.log(err)
+    })
+      
+      // 发送真正的网络请求,返回一个promise
+    	return instance(config)
+  }
+  ```
+
++ home.js负责首页数据请求 api接口管理
+
+  ```
+  import {request} from './request'
+  
+  export const getHomeMultidata = () => request({
+    url: '/home/multidata',
+    method: 'GET'
+  })
+  ```
+
++ 关于跨域问题
+
+  + 协议、域名、端口号不同请求，称之为跨域
+
+  比如本地服务器地址：http://localhost:8080/#/home
+
+  而后台服务器的地址：http://152XXX0:7878 
+
+  域名和端口号都不同，出现跨域问题
+
+  + 解决方式， 通过代理服务器解决跨域问题
+
+  ```
+  proxy: {
+          '/api': {
+            target: "http://152.136.185.210:7878/api/hy66",
+            pathRewrite: { '^/api': ''},
+          },
+        }
+  ```
 
 + Home.vue中请求数据
 

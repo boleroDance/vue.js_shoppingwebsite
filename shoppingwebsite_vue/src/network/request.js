@@ -9,6 +9,7 @@ export function request(config) {
 
   // 请求拦截
   instance.interceptors.request.use(config => {
+    // config 配置对象 对象里面有一个属性很重要 header请求头
     return config
   })
 
