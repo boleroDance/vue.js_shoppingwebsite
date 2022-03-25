@@ -28,7 +28,7 @@
 import NavBar from "../../components/common/navbar/NavBar.vue";
 import ListView from './childComps/ListView.vue';
 import UserInfo from "./childComps/UserInfo.vue";
-
+import { MessageBox, Message } from 'element-ui';
 
 export default {
   name: "Profile",
@@ -57,11 +57,31 @@ export default {
     logoutClick() {
       // 退出登陆
       // 发请求，服务器清除数据【token -> 本地清除数据【userinfo，token等
-      this.$store.dispatch('userLogout')
-      .then( res => {
-        this.$message.success('您已退出登陆')
-        this.$router.push('/home')
+      MessageBox.confirm('您确认退出?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消退出'
+        });     
       })
+
+    // this.$store.dispatch('userLogout')
+    //   .then( res => {
+    //     this.$message.success('您已退出登陆')
+    //     this.$router.push('/home')
+    //   })
+
     }
   },
   
