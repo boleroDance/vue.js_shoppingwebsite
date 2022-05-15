@@ -119,7 +119,7 @@ export default {
   methods: {
     // 将created的函数抽到methods中，在created只需调用
     getHomeMultidata() {
-      getHomeMultidata().then((res) => {
+      getHomeMultidata().then((res) => {   
         // console.log(res)
         // this.result = res
         this.banners = res.data.banner.list;

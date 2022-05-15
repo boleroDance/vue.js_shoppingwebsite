@@ -1,24 +1,31 @@
 # shoppingwebsite_vue
 
-## Project setup
-```
-npm install
-```
-
 ### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 项目各页面功能截图展示
 
-### Run your tests
-```
-npm run test
-```
+### 首页
+
+<img src="https://s2.loli.net/2022/05/15/gAkt2S1YLCiVnv9.gif" style="zoom:80%;" />
+
+### 详情页
+
+<img src="https://s2.loli.net/2022/05/15/QCcBzT2nw64ItfJ.gif" alt="detaildemo.gif" style="zoom:80%;" />
+
+### 分类页
+
+<img src="https://s2.loli.net/2022/05/15/ZHfw7UgxjNKiT2o.gif" alt="categorydemo.gif" style="zoom:80%;" />
+
+### 购物车页
+
+<img src="https://s2.loli.net/2022/05/15/jW9eGz8yX6fY1Rp.gif" alt="shoppcartdemo.gif" style="zoom:80%;" />
+
+### profile页
+
+<img src="https://s2.loli.net/2022/05/15/jJ4UXlep6AtFMBV.gif" alt="profiledemo.gif" style="zoom:80%;" />
 
 # 初始工作
 

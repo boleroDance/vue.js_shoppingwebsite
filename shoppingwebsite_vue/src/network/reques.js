@@ -2,7 +2,8 @@ import axios from 'axios'
 import store from '../store'
 
 const reques = axios.create({
-  baseURL: 'http://39.98.123.211/api',
+  // baseURL: 'http://39.98.123.211/api',
+  baseURL: 'http://gmall-h5-api.atguigu.cn/api',
   timeout: 5000
 })
 
